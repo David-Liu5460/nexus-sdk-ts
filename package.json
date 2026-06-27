@@ -1,0 +1,24 @@
+{
+  "name": "nexus-sdk-ts",
+  "version": "0.1.0",
+  "description": "OceanAI Agent SDK - Bun + TypeScript port (scaffold)",
+  "type": "module",
+  "module": "src/index.ts",
+  "private": true,
+  "scripts": {
+    "dev": "bun run examples/minimal.ts",
+    "check:llm": "bun run examples/check-llm.ts",
+    "agent": "bun run examples/agent-tools.ts",
+    "resume": "bun run examples/resume.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "build": "bun build src/index.ts --outdir dist --target bun"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.6.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

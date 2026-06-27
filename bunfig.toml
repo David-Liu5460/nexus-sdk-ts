@@ -1,0 +1,7 @@
+[install]
+# 内部 registry / scope 在此配置；默认走公网 npm
+# [install.scopes]
+# "@larksuiteoapi" = { url = "https://registry.npmjs.org/" }
+
+[test]
+root = "./test"
