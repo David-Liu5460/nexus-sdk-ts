@@ -8,6 +8,12 @@ export class NexusError extends Error {
 export class ErrMissingLLM extends NexusError {
   constructor() { super("missing LLM"); }
 }
+export class ErrMissingName extends NexusError {
+  constructor() { super("missing agent name"); }
+}
+export class ErrMissingDesc extends NexusError {
+  constructor() { super("missing agent description"); }
+}
 export class ErrStop extends NexusError {
   constructor() { super("agent stopped"); }
 }

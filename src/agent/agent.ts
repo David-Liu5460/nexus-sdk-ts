@@ -9,6 +9,12 @@ export interface Agent {
     messages: ChatCompletionMessage[],
     opts?: GenerateOptions,
   ): Promise<ChatCompletionResponse>;
+  // 续跑：在 askUser 中断后，喂入用户回答并从中断点继续 ReAct 闭环
+  resume(
+    ctx: Context,
+    answer: string,
+    opts?: GenerateOptions,
+  ): Promise<ChatCompletionResponse>;
   name(): string;
   description(): string;
   stop(): void;

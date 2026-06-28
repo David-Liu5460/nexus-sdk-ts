@@ -9,6 +9,7 @@ g.addNode({ name: "act", func: async () => { console.log("→ act"); return upda
 g.addNode({ name: "finish", func: async () => { console.log("→ finish"); return gotoEnd(); } });
 g.addEdge("act", "finish");
 g.setEntryPoint("plan");
+console.log(g, 'graph is:');
 
 const ctx = new MemoryContext({ query: "hello nexus" });
 await g.compile().invoke(ctx);

@@ -26,7 +26,7 @@ test("ReAct 闭环：工具调用一轮后给出最终回答", async () => {
     { content: "FINAL_hi" },
   ]);
   const ctx = new MemoryContext({ tools: [tool] });
-  const agent = new BaseAgent({ name: "t", llm, tools: [tool] });
+  const agent = new BaseAgent({ name: "t", description: "测试用", llm, tools: [tool] });
 
   const resp = await agent.run(ctx, [newUserMessage("回显 hi")]);
 
@@ -40,7 +40,7 @@ test("ReAct 闭环：工具调用一轮后给出最终回答", async () => {
 test("无工具调用时立即返回", async () => {
   const llm = new MockLLM([{ content: "直接回答" }]);
   const ctx = new MemoryContext();
-  const agent = new BaseAgent({ name: "t", llm });
+  const agent = new BaseAgent({ name: "t", description: "测试用", llm });
   const resp = await agent.run(ctx, [newUserMessage("hi")]);
   expect(resp.message.content).toBe("直接回答");
   expect(resp.finishReason).toBe("stop");
@@ -57,7 +57,7 @@ test("流式回调收到 Answer/ToolCall/ToolResult 事件", async () => {
   const toolCalls: string[] = [];
   const toolResults: string[] = [];
   const agent = new BaseAgent({
-    name: "t", llm, tools: [tool],
+    name: "t", description: "测试用", llm, tools: [tool],
     callback: {
       onAnswer: (d) => { answers.push(d); },
       onToolCall: (d) => { toolCalls.push(d); },
@@ -76,6 +76,6 @@ test("达到 MaxIterations 抛 ErrMaxIterations", async () => {
     { content: "loop", toolCalls: [{ id: "c1", name: "echo", arguments: JSON.stringify({ text: "z" }) }] },
   ]);
   const ctx = new MemoryContext({ tools: [tool] });
-  const agent = new BaseAgent({ name: "t", llm, tools: [tool], maxIterations: 3 });
+  const agent = new BaseAgent({ name: "t", description: "测试用", llm, tools: [tool], maxIterations: 3 });
   await expect(agent.run(ctx, [newUserMessage("go")])).rejects.toBeInstanceOf(ErrMaxIterations);
 });

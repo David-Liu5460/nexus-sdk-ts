@@ -1,6 +1,13 @@
 // 示例：带工具调用的最小 ReAct Agent
 // 默认用 MockLLM 离线跑通闭环；设置 ARK_API_KEY / OPENAI_API_KEY 时自动切换真实流式实现。
 import { BaseAgent } from "../src/agent/base.ts";
+
+// 本地调试默认凭证：未通过环境变量显式设置时，回退到下面的默认值，
+// 这样无需每次 export。已 export 的值优先（??= 仅在 undefined 时赋值）。
+// ⚠️ 注意：这是写死在源码里的明文 Key，切勿提交到公共仓库或泄露。
+process.env.ARK_API_KEY ??= "0e01770b-decd-4d99-a057-310c84282ec2";
+process.env.ARK_MODEL ??= "doubao-seed-2-0-pro-260215";
+
 import { MemoryContext } from "../src/context/memory.ts";
 import { AbstractTool } from "../src/tool/tool.ts";
 import type { Context } from "../src/context/context.ts";
@@ -50,9 +57,10 @@ function buildLLM(): LLM {
 
 async function main() {
   const tools = [new CalculatorTool()];
-  const ctx = new MemoryContext({ query: "(1+2)*3 等于多少？请调用 calculator 工具计算后回答。", tools });
+  const ctx = new MemoryContext({ query: "(1+10)*3 等于多少？请调用 calculator 工具计算后回答。", tools });
   const agent = new BaseAgent({
     name: "calc-agent",
+    description: "演示工具调用的计算助手",
     llm: buildLLM(),
     tools,
     callback: {

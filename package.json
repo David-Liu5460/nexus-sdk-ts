@@ -10,6 +10,9 @@
     "check:llm": "bun run examples/check-llm.ts",
     "agent": "bun run examples/agent-tools.ts",
     "resume": "bun run examples/resume.ts",
+    "ask:user": "bun run examples/ask-user.ts",
+    "hil:node": "bun run examples/hil-node.ts",
+    "custom:agent": "bun run examples/custom-agent.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "build": "bun build src/index.ts --outdir dist --target bun"
