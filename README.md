@@ -136,7 +136,7 @@ Go 版 Nexus 是六层架构。移植到本仓库时，**层级语义一一对�
 | 应用层 HTTP/Lark Bot/MCP Server | `deploys/` | `src/infra/server.ts` + 未来 `Bun.serve()` | 🔌 占位 |
 | 编排层 Graph + Application | `schema/graph.go`、`schema/application.go` | **`src/core/`** | ✅ 已落地 |
 | 智能体层 BaseAgent/SkillAgent/FornaxAgent | `agent/` | `src/agent/` | 🟡 BaseAgent（含 askUser/HITL、instruction、Feedback、filterMemory），Skill/Fornax 待接 |
-| 上下文层 NexusContext/OceanAIContext + Roadmap | `context/` | `src/context/` | 🟡 无 Roadmap |
+| 上下文层 NexusContext/OceanAIContext + Roadmap | `context/` | `src/context/` + `src/schema/roadmap.ts` | 🟡 Roadmap 数据结构 + MemoryContext 全量已落地；填充/压缩走远端（`src/infra/oceanai.ts`）|
 | 能力层 LLM/Tool/Callback/Feedback/Eval/Node | `llm/ tool/ callback/ feedback/ ...` | `src/llm/`、`src/tool/`、`src/callback/`、`src/feedback/` | 🟡 LLM/Tool/Callback/Feedback 已落地，Eval 待接 |
 | 基础层 schema 接口、prompt/log/utils | `schema/`、`prompt/`、`log/`、`utils/` | **`src/schema/`** + `src/prompt/` | 🟡 缺 log/utils |
 
@@ -250,7 +250,7 @@ await g.compile().invoke(ctx);
 | 并发分支 / 重试 / 超时 / skipOnError | `errgroup` + `NodeConfig` | ✅ | `executeNode`，`test/core.test.ts` |
 | **Middleware 流转优先级** | `resolveNext` 顶层 | ✅ | `graph.useMiddleware()`，`test/middleware-resume.test.ts` |
 | **中断恢复 resume / replay** | `InterruptionState` 续跑 | ✅ | `ctx.resume()` + 从中断节点重放，`test/middleware-resume.test.ts` |
-| 三层 Roadmap / AutoContextEditing | `context/` 治理 | ⏳ | 待接（Plan 模板骨架见 `src/prompt/`）|
+| 三层 Roadmap / AutoContextEditing | `context/` 治理 | 🟡 | 三层结构(Block/RecentTurn/Current)+Artifact 完整类型已迁移，`test/context.test.ts`；填充与 AutoCompaction 摘要为 P2 远端（OceanAI），本地 `MemoryContext` 提供 no-op 钩子 |
 
 > 流转优先级现已完整对齐 Go：**Middleware > Command.goto > 条件边 > 静态边 > END**；中断支持「同进程恢复」与「序列化跨进程恢复」两种重放路径，端到端用法见 `examples/resume.ts`。
 

@@ -13,6 +13,7 @@
     "ask:user": "bun run examples/ask-user.ts",
     "hil:node": "bun run examples/hil-node.ts",
     "custom:agent": "bun run examples/custom-agent.ts",
+    "chat": "bun run cli/chat.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "build": "bun build src/index.ts --outdir dist --target bun"

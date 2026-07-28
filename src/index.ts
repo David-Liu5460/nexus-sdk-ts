@@ -1,5 +1,6 @@
 // nexus-sdk-ts 顶层导出
 export * from "./schema/chat.ts";
+export * from "./schema/roadmap.ts";
 export * from "./schema/errors.ts";
 export * from "./schema/event.ts";
 export * from "./schema/interruption.ts";
